@@ -1,6 +1,6 @@
 /*
  * StringStream
- * Copyright (C) 2016 Sofian Audry -- info(@)sofianaudry(.)com
+ * Copyright (C) 2016-2022 Sofian Audry -- info(@)sofianaudry(.)com
  * 
  * This library is mainly used for debugging purposes. It writes and reads
  * from a single/common buffer, allowing to test your functions and algorithms.
