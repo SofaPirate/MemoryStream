@@ -25,45 +25,31 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef STRING_STREAM_H_
-#define STRING_STREAM_H_
+#include "StringStream.h"
 
-#include <Stream.h>
+StringStream::StringStream() : writePos(0), readPos(0), length(0) {}
 
-#ifndef STRING_STREAM_BUFFER_SIZE 128
-#define STRING_STREAM_BUFFER_SIZE 128
-#endif
-
-class StringStream : public Stream
-{
-public:
-  StringStream();
-
-  // Stream methods
-  virtual int available() { return length; }
+int StringStream::read() {
+  int val = peek();
+  if (val >= 0) {
+    readPos = (readPos+1) % STRING_STREAM_BUFFER_SIZE;
+    length--;
+  }
+  return val;
+}
   
-  virtual int read();
+int StringStream::peek() {
+  return ( available() == 0 ? (-1) : (int)buffer[readPos] );
+}
   
-  virtual int peek();
-  
-  virtual void flush() { }
-  
-  virtual size_t write(uint8_t c);
-
-private:
-  // Circular buffer containing the information.
-  uint8_t buffer[STRING_STREAM_BUFFER_SIZE];
-  
-  // Current write position in the circular buffer.
-  int writePos;
-  
-  // Current read position in the circular buffer.
-  int readPos;
-  
-  // Currentl length of the data available in buffer.
-  int length;
-};
-
-#endif
-
-
+size_t StringStream::write(uint8_t c) {
+  if (length >= STRING_STREAM_BUFFER_SIZE)
+    return 0; // buffer is full
+  else
+  {
+    buffer[writePos] = c;
+    writePos = (writePos+1) % STRING_STREAM_BUFFER_SIZE;
+    length++;
+    return 1;
+  }
+}
