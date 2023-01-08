@@ -1,5 +1,5 @@
 /*
- * StringStream
+ * MemoryStream
  * Copyright (C) 2016-2022 Sofian Audry -- info(@)sofianaudry(.)com
  * 
  * This library is mainly used for debugging purposes. It writes and reads
@@ -7,7 +7,7 @@
  * 
  * Example use:
  * <code>
- * StringStream stream;
+ * MemoryStream stream;
  * stream.write(42);
  * int val = stream.read(); // <-- variable "val" will contain value 42
  * </code>
@@ -25,19 +25,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef STRING_STREAM_H_
-#define STRING_STREAM_H_
+#ifndef MEMORY_STREAM_H_
+#define MEMORY_STREAM_H_
 
 #include <Stream.h>
 
-#ifndef STRING_STREAM_BUFFER_SIZE 128
-#define STRING_STREAM_BUFFER_SIZE 128
+#ifndef MEMORY_STREAM_BUFFER_SIZE 128
+#define MEMORY_STREAM_BUFFER_SIZE 128
 #endif
 
-class StringStream : public Stream
+class MemoryStream : public Stream
 {
 public:
-  StringStream();
+  MemoryStream();
 
   // Stream methods
   virtual int available() { return length; }
@@ -52,7 +52,7 @@ public:
 
 private:
   // Circular buffer containing the information.
-  uint8_t buffer[STRING_STREAM_BUFFER_SIZE];
+  uint8_t buffer[MEMORY_STREAM_BUFFER_SIZE];
   
   // Current write position in the circular buffer.
   int writePos;

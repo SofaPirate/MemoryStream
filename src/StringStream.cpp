@@ -1,5 +1,5 @@
 /*
- * StringStream
+ * MemoryStream
  * Copyright (C) 2016-2022 Sofian Audry -- info(@)sofianaudry(.)com
  * 
  * This library is mainly used for debugging purposes. It writes and reads
@@ -7,7 +7,7 @@
  * 
  * Example use:
  * <code>
- * StringStream stream;
+ * MemoryStream stream;
  * stream.write(42);
  * int val = stream.read(); // <-- variable "val" will contain value 42
  * </code>
@@ -25,30 +25,30 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "StringStream.h"
+#include "MemoryStream.h"
 
-StringStream::StringStream() : writePos(0), readPos(0), length(0) {}
+MemoryStream::MemoryStream() : writePos(0), readPos(0), length(0) {}
 
-int StringStream::read() {
+int MemoryStream::read() {
   int val = peek();
   if (val >= 0) {
-    readPos = (readPos+1) % STRING_STREAM_BUFFER_SIZE;
+    readPos = (readPos+1) % MEMORY_STREAM_BUFFER_SIZE;
     length--;
   }
   return val;
 }
   
-int StringStream::peek() {
+int MemoryStream::peek() {
   return ( available() == 0 ? (-1) : (int)buffer[readPos] );
 }
   
-size_t StringStream::write(uint8_t c) {
-  if (length >= STRING_STREAM_BUFFER_SIZE)
+size_t MemoryStream::write(uint8_t c) {
+  if (length >= MEMORY_STREAM_BUFFER_SIZE)
     return 0; // buffer is full
   else
   {
     buffer[writePos] = c;
-    writePos = (writePos+1) % STRING_STREAM_BUFFER_SIZE;
+    writePos = (writePos+1) % MEMORY_STREAM_BUFFER_SIZE;
     length++;
     return 1;
   }

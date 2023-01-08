@@ -4,10 +4,10 @@ serial communication, typically for debugging and testing purposes.
 Example usage:
 
 ```c++
-#include <StringStream.h>
+#include <MemoryStream.h>
 
-// Create StringStream object.
-StringStream stream;
+// Create MemoryStream object.
+MemoryStream stream;
 
 void setup() {
   Serial.begin(115200);
@@ -27,10 +27,10 @@ void loop() {
 }
 ```
 
-By default, the size of the buffer is 128 bytes. This can be changed by defining `STRING_STREAM_BUFFER_SIZE` before including the library:
+By default, the size of the buffer is 128 bytes. This can be changed by defining `MEMORY_STREAM_BUFFER_SIZE` before including the library:
 
 ```c++
 
-#define STRING_STREAM_BUFFER_SIZE 64
-#include <StringStream.h>
+#define MEMORY_STREAM_BUFFER_SIZE 64
+#include <MemoryStream.h>
 ```

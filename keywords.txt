@@ -1,5 +1,5 @@
 #######################################
-# Syntax Coloring Map For StringStream
+# Syntax Coloring Map For MemoryStream
 #######################################
 
 #######################################
